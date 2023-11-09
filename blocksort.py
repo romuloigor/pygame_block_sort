@@ -17,6 +17,7 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 MAGENTA = (255, 0, 255)
+COLORS = [RED, GREEN, BLUE, YELLOW, MAGENTA]  # Lista de cores disponíveis
 
 # Constantes de jogo
 SQUARE_SIZE = 50
@@ -28,9 +29,9 @@ STATUS_BAR_COLOR = BLACK
 
 # Estado do jogo
 num_squares_per_stack = 3
-colors = [RED, GREEN, BLUE, YELLOW, MAGENTA]  # Lista de cores disponíveis
 stacks = {}
 
+# Funções auxiliares
 def is_within_bounds(x, y, rect_x, rect_y):
     return rect_x < x < rect_x + SQUARE_SIZE and rect_y < y < rect_y + SQUARE_SIZE
 
@@ -78,17 +79,27 @@ def all_stacks_one_color():
                 return False
     return True
 
+# Função de configuração das pilhas
 def setup_stacks(num_stacks=5):
     global num_squares_per_stack
-    available_colors = colors[:num_stacks - 1]  # Seleciona as cores com base no número de pilhas
-    initial_colors = available_colors * num_squares_per_stack  # Duplica as cores
-    random.shuffle(initial_colors)  # Embaralha as cores
-
+    available_colors = COLORS[:num_stacks - 1]
     stacks.clear()
-    for i in range(num_stacks):
+    for i in range(num_stacks - 1):
         stack_key = f'stack{i+1}'
-        stacks[stack_key] = {'pos': [100 + 150 * i, 100], 'colors': initial_colors[i*num_squares_per_stack:(i+1)*num_squares_per_stack] if i < num_stacks - 1 else []}
+        stacks[stack_key] = {'pos': [100 + 150 * i, 100], 'colors': [available_colors[i]] * num_squares_per_stack}
+    
+    all_colors = []
+    for stack in stacks.values():
+        all_colors.extend(stack['colors'])
+    random.shuffle(all_colors)
 
+    for stack in stacks.values():
+        for i in range(num_squares_per_stack):
+            stack['colors'][i] = all_colors.pop()
+
+    stacks[f'stack{num_stacks}'] = {'pos': [100 + 150 * (num_stacks - 1), 100], 'colors': []}
+
+# Loop principal do jogo
 def main_game_loop():
     global num_squares_per_stack
     num_stacks = 5
@@ -112,12 +123,12 @@ def main_game_loop():
         pygame.time.delay(30)
 
         if level_completed:
-            pygame.time.delay(2000)  # Pausa para o jogador ver a mensagem de vitória
-            num_squares_per_stack += 1  # Aumenta a dificuldade para o próximo nível
-            if num_squares_per_stack > len(colors):  # Se ultrapassar o número de cores disponíveis, o jogo termina
+            pygame.time.delay(2000)
+            num_squares_per_stack += 1
+            if num_squares_per_stack > len(COLORS):
                 running = False
             else:
-                setup_stacks(num_stacks)  # Reinicia as pilhas para o próximo nível
+                setup_stacks(num_stacks)
 
     pygame.quit()
     sys.exit()

@@ -1,30 +1,23 @@
 # Regras do Jogo
 
 ## Objetivo
-O objetivo do jogo é organizar os quadrados coloridos de modo que cada pilha contenha quadrados de uma única cor.
+O objetivo do jogo é organizar os quadrados em pilhas de acordo com a cor.
+Cada pilha deve conter quadrados de apenas uma cor, e todas as pilhas devem estar completas para vencer o nível.
 
 ## Como Jogar
-- Clique em um quadrado para selecioná-lo.
-- Clique em uma pilha para mover o quadrado selecionado para essa pilha, se houver espaço disponível.
-- Você só pode mover quadrados para pilhas que tenham espaço para mais quadrados (até 3 por pilha).
-- O jogo termina quando todas as pilhas estiverem organizadas com quadrados da mesma cor.
+- Clique em um quadrado para movê-lo para outra pilha com espaço disponível.
+- Uma pilha pode conter no máximo o número de quadrados definido para o nível atual.
+- Ao completar um nível, todas as pilhas devem conter quadrados da mesma cor.
+- Quando um nível é completado, o número de quadrados por pilha aumenta, e o jogo embaralha as cores novamente para o próximo nível.
+- O jogo termina quando você alcança um nível que tem mais quadrados por pilha do que cores disponíveis.
 
-## Regras
-- Cada pilha pode conter no máximo 3 quadrados.
-- Se a pilha estiver cheia, você deve mover um quadrado para outra pilha antes de adicionar um novo.
-- A última pilha (por exemplo, Stack5 em um jogo com 5 pilhas) é usada como área de transferência e também deve conter quadrados da mesma cor para completar o jogo.
-- A barra de status na parte inferior da tela indicará quando o objetivo for alcançado.
-
-## Dicas
-- Planeje seus movimentos com antecedência.
-- Use a pilha de transferência (última pilha) para temporariamente armazenar quadrados enquanto organiza as outras pilhas.
+## Controles
+- Use o mouse para clicar e mover os quadrados entre as pilhas.
+- O cursor do mouse destaca os quadrados ao passar por cima deles.
 
 ## Níveis de Dificuldade
-- O jogo pode ser jogado em diferentes níveis de dificuldade. O nível de dificuldade padrão é com 5 pilhas.
-- Em níveis de dificuldade mais altos, o número de pilhas aumenta, adicionando mais complexidade ao jogo.
+- O jogo começa com 3 quadrados por pilha.
+- A cada nível concluído, o número de quadrados por pilha aumenta em um.
+- O número máximo de quadrados por pilha é limitado pelo número de cores disponíveis.
 
-## Configuração do Nível de Dificuldade
-- Para alterar o nível de dificuldade, ajuste o número de pilhas e quadrados por pilha ao iniciar o jogo.
-- Por exemplo, ao chamar `setup_stacks(num_stacks=6, num_squares_per_stack=3)`, o jogo iniciará com 6 pilhas.
-
-Boa sorte e divirta-se!
+Boa sorte e divirta-se organizando as pilhas!
